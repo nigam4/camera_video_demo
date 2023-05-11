@@ -1,8 +1,7 @@
 import 'dart:io';
 
-import 'package:camera/camera.dart';
+import 'package:camera_video_demo/photo_view.dart';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
 
 class GalleryScreen extends StatefulWidget {
   final List<FileSystemEntity> images;
@@ -33,11 +32,22 @@ class _GalleryScreenState extends State<GalleryScreen> {
         ),
         itemCount: widget.images.length,
         itemBuilder: (context, index) {
-          return Image(
-            image: FileImage(
-              File(widget.images[index].path),
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      PhotoViewScreen(images: widget.images, index: index),
+                ),
+              );
+            },
+            child: Image(
+              image: FileImage(
+                File(widget.images[index].path),
+              ),
+              fit: BoxFit.fill,
             ),
-            fit: BoxFit.fill,
           );
         },
       ),
@@ -56,25 +66,4 @@ class _GalleryScreenState extends State<GalleryScreen> {
       //         .toList()),
     );
   }
-
-// void _requestAppDocumentsDirectory() {
-//   setState(() {
-//     _appDocumentsDirectory = getApplicationDocumentsDirectory();
-//   });
-// }
-//
-// Widget _buildDirectory(
-//     BuildContext context, AsyncSnapshot<Directory?> snapshot) {
-//   Text text = const Text('');
-//   if (snapshot.connectionState == ConnectionState.done) {
-//     if (snapshot.hasError) {
-//       text = Text('Error: ${snapshot.error}');
-//     } else if (snapshot.hasData) {
-//       text = Text('path: ${snapshot.data!.path}');
-//     } else {
-//       text = const Text('path unavailable');
-//     }
-//   }
-//   return Padding(padding: const EdgeInsets.all(16.0), child: text);
-// }
 }
