@@ -44,8 +44,8 @@ class _PhotoViewScreenState extends State<PhotoViewScreen> {
             imageProvider: FileImage(
               File(widget.images[index].path),
             ),
-            minScale: PhotoViewComputedScale.contained * 0.8,
-            maxScale: PhotoViewComputedScale.covered * 0.8,
+            minScale: PhotoViewComputedScale.contained * 0.3,
+            maxScale: PhotoViewComputedScale.covered * 2,
           );
         },
       ),
